@@ -1,0 +1,22 @@
+# Python Dependencies for Autonomous Rover System
+# Author: Sharan G S
+
+# Computer Vision and Object Detection
+ultralytics>=8.0.0
+opencv-python>=4.8.0
+opencv-contrib-python>=4.8.0
+
+# Numerical Computing
+numpy>=1.24.0
+scipy>=1.10.0
+
+# ROS2 Python Libraries (install via apt, listed here for reference)
+# ros-humble-rclpy
+# ros-humble-cv-bridge
+# ros-humble-sensor-msgs
+# ros-humble-geometry-msgs
+# ros-humble-nav-msgs
+# ros-humble-visualization-msgs
+
+# Optional: For development and debugging
+matplotlib>=3.7.0

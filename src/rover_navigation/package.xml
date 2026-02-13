@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>rover_navigation</name>
+  <version>1.0.0</version>
+  <description>Nav2 navigation stack configuration for 6-wheel autonomous rover</description>
+  <maintainer email="sharangs@example.com">Sharan G S</maintainer>
+  <license>MIT</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <depend>nav2_bringup</depend>
+  <depend>nav2_common</depend>
+  <depend>navigation2</depend>
+  <depend>nav2_msgs</depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>
