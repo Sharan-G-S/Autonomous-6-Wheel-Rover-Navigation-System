@@ -1,11 +1,25 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="autonomous_rover">
 
+  <!-- 
+    6-Wheel Autonomous Rover URDF Model
+    Author: Sharan G S
+    
+    Hardware:
+    - Jetson AGX 64GB (onboard computer)
+    - RPLidar A1/A2 (360-degree laser scanner)
+    - ZED 2i Stereo Camera (RGB, depth, IMU)
+    - Multiple Sony lens cameras (multi-angle perception)
+    - EMLID REACH M2 GPS (RTK positioning)
+    - ESP32 microcontrollers (motor control, sensors)
+    - 6-wheel differential drive system
+  -->
+
   <!-- Properties -->
   <xacro:property name="chassis_length" value="0.8"/>
   <xacro:property name="chassis_width" value="0.5"/>
   <xacro:property name="chassis_height" value="0.2"/>
-  <xacro:property name="chassis_mass" value="25.0"/>
+  <xacro:property name="chassis_mass" value="30.0"/>  <!-- Increased for Jetson AGX + batteries -->
   
   <xacro:property name="wheel_radius" value="0.125"/>
   <xacro:property name="wheel_width" value="0.08"/>
@@ -192,5 +206,99 @@
     <child link="imu_link"/>
     <origin xyz="0 0 0" rpy="0 0 0"/>
   </joint>
+
+  <!-- GPS (EMLID REACH M2) -->
+  <link name="gps_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.06 0.06 0.02"/>
+      </geometry>
+      <material name="gray"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.06 0.06 0.02"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.05"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="0.00001" ixy="0.0" ixz="0.0" iyy="0.00001" iyz="0.0" izz="0.00001"/>
+    </inertial>
+  </link>
+
+  <joint name="gps_joint" type="fixed">
+    <parent link="chassis"/>
+    <child link="gps_link"/>
+    <origin xyz="${-chassis_length/4} 0 ${chassis_height/2 + 0.02}" rpy="0 0 0"/>
+  </joint>
+
+  <!-- Sony Camera Macro for multiple angles -->
+  <xacro:macro name="sony_camera" params="name x y z roll pitch yaw">
+    <link name="${name}">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <box size="0.025 0.025 0.025"/>
+        </geometry>
+        <material name="black"/>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <box size="0.025 0.025 0.025"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <mass value="0.05"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <inertia ixx="0.00001" ixy="0.0" ixz="0.0" iyy="0.00001" iyz="0.0" izz="0.00001"/>
+      </inertial>
+    </link>
+
+    <joint name="${name}_joint" type="fixed">
+      <parent link="chassis"/>
+      <child link="${name}"/>
+      <origin xyz="${x} ${y} ${z}" rpy="${roll} ${pitch} ${yaw}"/>
+    </joint>
+  </xacro:macro>
+
+  <!-- Sony Cameras at different angles -->
+  <!-- Front-left camera -->
+  <xacro:sony_camera name="sony_camera_fl" 
+                     x="${chassis_length/2}" 
+                     y="${chassis_width/4}" 
+                     z="${chassis_height/2}" 
+                     roll="0" pitch="0" yaw="${pi/6}"/>
+  
+  <!-- Front-right camera -->
+  <xacro:sony_camera name="sony_camera_fr" 
+                     x="${chassis_length/2}" 
+                     y="${-chassis_width/4}" 
+                     z="${chassis_height/2}" 
+                     roll="0" pitch="0" yaw="${-pi/6}"/>
+  
+  <!-- Rear camera -->
+  <xacro:sony_camera name="sony_camera_rear" 
+                     x="${-chassis_length/2}" 
+                     y="0" 
+                     z="${chassis_height/2}" 
+                     roll="0" pitch="0" yaw="${pi}"/>
+  
+  <!-- Left side camera -->
+  <xacro:sony_camera name="sony_camera_left" 
+                     x="0" 
+                     y="${chassis_width/2}" 
+                     z="${chassis_height/2}" 
+                     roll="0" pitch="0" yaw="${pi/2}"/>
+  
+  <!-- Right side camera -->
+  <xacro:sony_camera name="sony_camera_right" 
+                     x="0" 
+                     y="${-chassis_width/2}" 
+                     z="${chassis_height/2}" 
+                     roll="0" pitch="0" yaw="${-pi/2}"/>
 
 </robot>
