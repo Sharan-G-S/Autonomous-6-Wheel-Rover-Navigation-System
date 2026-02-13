@@ -441,28 +441,5 @@ MIT License
 
 ## Author
 
-Sharan G S
+# Made with 💚 from Sharan G S
 
-## References
-
-- [ROS2 Humble Documentation](https://docs.ros.org/en/humble/)
-- [Nav2 Documentation](https://navigation.ros.org/)
-- [SLAM Toolbox](https://github.com/SteveMacenski/slam_toolbox)
-- [robot_localization](http://docs.ros.org/en/noetic/api/robot_localization/html/index.html)
-- [YOLOv8](https://github.com/ultralytics/ultralytics)
-- [ZED SDK](https://www.stereolabs.com/developers/)
-- [EMLID REACH M2](https://docs.emlid.com/reachm2/)
-- [Jetson AGX Documentation](https://developer.nvidia.com/embedded/jetson-agx-orin)
-
-## Contributing
-
-Contributions are welcome. Please open an issue or submit a pull request.
-
-## Acknowledgments
-
-- ROS2 and Nav2 communities
-- SLAM Toolbox by Steve Macenski
-- Ultralytics for YOLOv8
-- Stereolabs for ZED SDK
-- EMLID for REACH M2 GPS
-- NVIDIA for Jetson platform
