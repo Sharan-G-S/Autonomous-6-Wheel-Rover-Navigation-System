@@ -1,6 +1,6 @@
 # Autonomous 6-Wheel Rover Navigation System with GPS
 
-Author: Sharan G S
+Sharan G S
 
 ## Overview
 
@@ -414,7 +414,7 @@ sudo jetson_clocks
 
 ### Camera Resolution
 - Use HD720 for ZED 2i (balance between quality and performance)
-- Reduce Sony camera resolution if needed
+- Ardu camera resolution if needed
 
 ### Navigation Tuning
 - Adjust planning frequency based on CPU load
